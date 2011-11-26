@@ -3,3 +3,4 @@ dist
 .path_progress
 .idea/
 *.rbc
+koans/Scratch.rb
