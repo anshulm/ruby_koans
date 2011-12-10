@@ -1,33 +1,33 @@
 require File.expand_path(File.dirname(__FILE__) + '/edgecase')
 
-def my_global_method(a,b)
+def my_global_method(a, b)
   a + b
 end
 
 class AboutMethods < EdgeCase::Koan
 
   def test_calling_global_methods
-    assert_equal __, my_global_method(2,3)
+    assert_equal 5, my_global_method(2, 3)
   end
 
   def test_calling_global_methods_without_parentheses
     result = my_global_method 2, 3
-    assert_equal __, result
+    assert_equal 5, result
   end
 
   # (NOTE: We are Using eval below because the example code is
   # considered to be syntactically invalid).
   def test_sometimes_missing_parentheses_are_ambiguous
-    eval "assert_equal 5, my_global_method 2, 3" # ENABLE CHECK
-    #
-    # Ruby doesn't know if you mean:
-    #
-    #   assert_equal(5, my_global_method(2), 3)
-    # or
-    #   assert_equal(5, my_global_method(2, 3))
-    #
-    # Rewrite the eval string to continue.
-    #
+    assert_equal 5, my_global_method(2, 3) # ENABLE CHECK
+                                           #
+                                           # Ruby doesn't know if you mean:
+                                           #
+                                           #   assert_equal(5, my_global_method(2), 3)
+                                           # or
+                                           #   assert_equal(5, my_global_method(2, 3))
+                                           #
+                                           # Rewrite the eval string to continue.
+                                           #
   end
 
   # NOTE: wrong number of argument is not a SYNTAX error, but a
@@ -39,7 +39,7 @@ class AboutMethods < EdgeCase::Koan
     assert_match(/__/, exception.message)
 
     exception = assert_raise(___) do
-      my_global_method(1,2,3)
+      my_global_method(1, 2, 3)
     end
     assert_match(/__/, exception.message)
   end
@@ -98,11 +98,11 @@ class AboutMethods < EdgeCase::Koan
   end
 
   def test_calling_methods_in_same_class
-    assert_equal __, my_method_in_the_same_class(3,4)
+    assert_equal __, my_method_in_the_same_class(3, 4)
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal __, self.my_method_in_the_same_class(3,4)
+    assert_equal __, self.my_method_in_the_same_class(3, 4)
   end
 
   # ------------------------------------------------------------------
@@ -110,6 +110,7 @@ class AboutMethods < EdgeCase::Koan
   def my_private_method
     "a secret"
   end
+
   private :my_private_method
 
   def test_calling_private_methods_without_receiver
